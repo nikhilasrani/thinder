@@ -1,56 +1,24 @@
-import React from "react";
-import { StyleSheet, View } from "react-native";
-import {
-  createBottomTabNavigator,
-  createAppContainer,
-  createStackNavigator
-} from "react-navigation";
-
+import React, { Component } from "react";
 import { Provider } from "react-redux";
+import AppNavigation from "./AppNavigation";
 import store from "./store";
 
-import AuthScreen from "./screens/AuthScreen";
-import WelcomeScreen from "./screens/WelcomeScreen";
-import MapScreen from "./screens/MapScreen";
-import DeckScreen from "./screens/DeckScreen";
-import ReviewScreen from "./screens/ReviewScreen";
-import SettingsScreen from "./screens/SettingsScreen";
-
-class App extends React.Component {
+class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <View style={styles.container}>
-          <MainNavigator />
-        </View>
+        <AppNavigation />
       </Provider>
     );
   }
 }
-const MainNavigator = createBottomTabNavigator({
-  welcome: { screen: WelcomeScreen },
-  auth: { screen: AuthScreen },
-  main: {
-    screen: createBottomTabNavigator({
-      map: { screen: MapScreen },
-      deck: { screen: DeckScreen },
-      review: {
-        screen: createStackNavigator({
-          review: { screen: ReviewScreen },
-          settings: { screen: SettingsScreen }
-        })
-      }
-    })
-  }
-});
+export default App;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
-  }
-});
-
-export default createAppContainer(MainNavigator);
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: "#fff",
+//     alignItems: "center",
+//     justifyContent: "center"
+//   }
+// });
