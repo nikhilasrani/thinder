@@ -14,23 +14,33 @@ import DeckScreen from "./screens/DeckScreen";
 import ReviewScreen from "./screens/ReviewScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 
-const AppNavigator = createBottomTabNavigator({
-  welcome: { screen: WelcomeScreen },
-  auth: { screen: AuthScreen },
-  main: {
-    screen: createBottomTabNavigator({
-      map: { screen: MapScreen },
-      deck: { screen: DeckScreen },
-      review: {
-        screen: createStackNavigator({
-          review: { screen: ReviewScreen },
-          settings: { screen: SettingsScreen }
-        })
-      }
-    })
+const AppNavigator = createBottomTabNavigator(
+  {
+    welcome: { screen: WelcomeScreen },
+    auth: { screen: AuthScreen },
+    main: {
+      screen: createBottomTabNavigator({
+        map: { screen: MapScreen },
+        deck: { screen: DeckScreen },
+        review: {
+          screen: createStackNavigator({
+            review: { screen: ReviewScreen },
+            settings: { screen: SettingsScreen }
+          })
+        }
+      })
+    }
+  },
+  {
+    defaultNavigationOptions: {
+      tabBarVisible: false
+    },
+    lazy: true
   }
-});
-
+);
+AppNavigator.navigationOptions = ({ navigation }) => {
+  let tabBarVisible = false;
+};
 const AppContainer = createAppContainer(AppNavigator);
 
 class AppNavigation extends Component {
