@@ -1,20 +1,20 @@
 import React, { Component } from "react";
 import { View, Text } from "react-native";
+import { connect } from "react-redux";
+import jobs_reducer from "../reducers/jobs_reducer";
 
 class DeckScreen extends Component {
   render() {
     return (
       <View>
         <Text>DeckScreen</Text>
-        <Text>DeckScreen</Text>
-        <Text>DeckScreen</Text>
-        <Text>DeckScreen</Text>
-        <Text>DeckScreen</Text>
-        <Text>DeckScreen</Text>
-        <Text>DeckScreen</Text>
       </View>
     );
   }
 }
 
-export default DeckScreen;
+function mapStateToProps({ jobs }) {
+  return { jobs: jobs.results };
+}
+
+export default connect(mapStateToProps)(DeckScreen);
