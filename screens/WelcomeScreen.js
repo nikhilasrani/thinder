@@ -5,9 +5,17 @@ import Slides from "../components/Slides";
 import { AppLoading } from "expo";
 
 const SLIDE_DATA = [
-  { text: "Welcome to JobApp", color: "#03A9F4" },
-  { text: "Use this to find a job", color: "#009688" },
-  { text: "Set your location, then swipe away", color: "#03A9F4" }
+  { text: "Welcome to Thinder, Swipe left to continue", color: "#03A9F4" },
+  {
+    text:
+      "The word 'thindi' or 'ತಿಂಡಿ' in Kannada means food. Thinder is an app that combines a Tinder-like interface with Zomato's API capabilities to search for restaurants nearby and help you make that food decision much easier.",
+    color: "#009688"
+  },
+  {
+    text:
+      "This app authenticates you and persists data using Facebook. Select your location and begin swiping away!",
+    color: "#03A9F4"
+  }
 ];
 
 class WelcomeScreen extends Component {

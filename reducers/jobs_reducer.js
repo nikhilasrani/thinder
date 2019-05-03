@@ -1,7 +1,8 @@
 import { FETCH_JOBS } from "../actions/types";
 
 const INITIAL_STATE = {
-  results: []
+  results: [],
+  nearby_restaurants: []
 };
 export default function(state = INITIAL_STATE, action) {
   switch (action.type) {

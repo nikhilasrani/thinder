@@ -8,7 +8,7 @@ class Slides extends Component {
     if (index === this.props.data.length - 1) {
       return (
         <Button
-          title="Onwards"
+          title="Login with Facebook"
           raised
           buttonStyle={styles.buttonStyle}
           onPress={this.props.onComplete}
@@ -45,8 +45,9 @@ const styles = {
     width: SCREEN_WIDTH
   },
   slideText: {
-    fontSize: 30,
-    color: "white"
+    fontSize: 20,
+    color: "white",
+    textAlign: "center"
   },
   buttonStyle: {
     backgroundColor: "#0288D1"
