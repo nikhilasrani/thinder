@@ -15,8 +15,7 @@ const SWIPE_OUT_DURATION = 250;
 class Swipe extends Component {
   static defaultProps = {
     onSwipeRight: () => {},
-    onSwipeLeft: () => {},
-    kepProp: "id"
+    onSwipeLeft: () => {}
   };
 
   constructor(props) {
@@ -90,7 +89,7 @@ class Swipe extends Component {
     };
   }
 
-  renderCards() {
+  renderCards(props) {
     if (this.state.index >= this.props.data.length) {
       return this.props.renderNoMoreCards();
     }
@@ -104,7 +103,7 @@ class Swipe extends Component {
         if (i === this.state.index) {
           return (
             <Animated.View
-              key={item[this.props.keyProp]}
+              key={item.restaurant.id}
               style={[this.getCardStyle(), styles.cardStyle, { zIndex: 99 }]}
               {...this.state.panResponder.panHandlers}
             >
@@ -115,7 +114,7 @@ class Swipe extends Component {
 
         return (
           <Animated.View
-            key={item[this.props.keyProp]}
+            key={item.restaurant.id}
             style={[
               styles.cardStyle,
               { top: 10 * (i - this.state.index), zIndex: 5 }

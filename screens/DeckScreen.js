@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { View, Text, Image } from "react-native";
 import { connect } from "react-redux";
 import { MapView } from "expo";
-import { Card, Button, Rating } from "react-native-elements";
+import { Card, Rating } from "react-native-elements";
 import Swipe from "../components/Swipe";
-import jobs_reducer from "../reducers/jobs_reducer";
+import * as actions from "../actions";
 
 class DeckScreen extends Component {
   renderCard(job) {
@@ -59,7 +59,7 @@ class DeckScreen extends Component {
           data={this.props.jobs}
           renderCard={this.renderCard}
           renderNoMoreCards={this.renderNoMoreCards}
-          keyProp="restaurant.id"
+          onSwipeRight={job => this.props.likeJob(job)}
         />
       </View>
     );
@@ -80,5 +80,7 @@ const styles = {
 function mapStateToProps({ jobs }) {
   return { jobs: jobs.nearby_restaurants };
 }
-
-export default connect(mapStateToProps)(DeckScreen);
+export default connect(
+  mapStateToProps,
+  actions
+)(DeckScreen);
