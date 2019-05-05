@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FETCH_JOBS, LIKE_JOB } from "./types";
+import { FETCH_JOBS, LIKE_JOB, CLEAR_LIKED_JOBS } from "./types";
 
 export const fetchJobs = (region, callback) => async dispatch => {
   try {
@@ -19,5 +19,11 @@ export const likeJob = job => {
   return {
     payload: job,
     type: LIKE_JOB
+  };
+};
+
+export const clearLikedJobs = () => {
+  return {
+    type: CLEAR_LIKED_JOBS
   };
 };

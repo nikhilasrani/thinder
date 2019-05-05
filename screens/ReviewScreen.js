@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { View, Text, Platform } from "react-native";
-import { Button } from "react-native-elements";
+import { View, Text, Platform, ScrollView, Image, Linking } from "react-native";
+import { Card, Button } from "react-native-elements";
+import { connect } from "react-redux";
 
 class ReviewScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
-    headerTitle: "Review Jobs",
+    headerTitle: "Review Restaurants",
     headerRight: (
       <Button
         title="Settings"
@@ -13,19 +14,57 @@ class ReviewScreen extends Component {
     )
   });
 
+  renderLikedJobs() {
+    return this.props.likedJobs.map(job => {
+      return (
+        <Card title={job.restaurant.name} key={job.restaurant.id}>
+          <View style={{ height: 330 }}>
+            <Image
+              style={styles.image}
+              resizeMode="cover"
+              source={{ uri: job.restaurant.thumb }}
+            />
+            <View style={styles.detailWrapper}>
+              <View>
+                <Text style={styles.italics}>{job.restaurant.cuisines}</Text>
+              </View>
+              <View>
+                <Text style={styles.italics}>
+                  {job.restaurant.location.locality_verbose}
+                </Text>
+              </View>
+            </View>
+            <Button
+              title="View on Zomato"
+              buttonStyle={{ backgroundColor: "#f55" }}
+              onPress={() => Linking.openURL(job.restaurant.deeplink)}
+            />
+          </View>
+        </Card>
+      );
+    });
+  }
   render() {
-    return (
-      <View>
-        <Text>ReviewScreen</Text>
-        <Text>ReviewScreen</Text>
-        <Text>ReviewScreen</Text>
-        <Text>ReviewScreen</Text>
-        <Text>ReviewScreen</Text>
-        <Text>ReviewScreen</Text>
-        <Text>ReviewScreen</Text>
-      </View>
-    );
+    return <ScrollView>{this.renderLikedJobs()}</ScrollView>;
   }
 }
 
-export default ReviewScreen;
+const styles = {
+  detailWrapper: {
+    marginBottom: 10,
+    flexDirection: "row",
+    justifyContent: "space-around"
+  },
+  italics: {
+    fontStyle: "italic"
+  },
+  image: {
+    height: 260
+  }
+};
+
+function mapStateToProps(state) {
+  return { likedJobs: state.likedJobs };
+}
+
+export default connect(mapStateToProps)(ReviewScreen);
