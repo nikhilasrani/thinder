@@ -2,11 +2,17 @@ import React, { Component } from "react";
 import { View, Text, Image } from "react-native";
 import { connect } from "react-redux";
 import { MapView } from "expo";
-import { Button, Card, Rating } from "react-native-elements";
+import { Button, Card, Rating, Icon } from "react-native-elements";
 import Swipe from "../components/Swipe";
 import * as actions from "../actions";
 
 class DeckScreen extends Component {
+  static navigationOptions = {
+    tabBarLabel: "Restaurants",
+    tabBarIcon: ({ tintColor }) => {
+      return <Icon name="cake" size={30} color={tintColor} />;
+    }
+  };
   renderCard(job) {
     const initialRegion = {
       longitude: parseInt(job.restaurant.location.longitude),
@@ -51,7 +57,7 @@ class DeckScreen extends Component {
 
   renderNoMoreCards = () => {
     return (
-      <Card title="No more restaurants">
+      <Card title="No more Restaurants">
         <Text>
           Pan around and search other areas for more nearby restaurants!
         </Text>

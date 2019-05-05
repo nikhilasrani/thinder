@@ -6,7 +6,7 @@ import {
   createAppContainer,
   createStackNavigator
 } from "react-navigation";
-
+import { Icon } from "react-native-elements";
 import AuthScreen from "./screens/AuthScreen";
 import WelcomeScreen from "./screens/WelcomeScreen";
 import MapScreen from "./screens/MapScreen";
@@ -26,7 +26,13 @@ const AppNavigator = createBottomTabNavigator(
           screen: createStackNavigator({
             review: { screen: ReviewScreen },
             settings: { screen: SettingsScreen }
-          })
+          }),
+          navigationOptions: {
+            tabBarLabel: "Review",
+            tabBarIcon: ({ tintColor }) => {
+              return <Icon name="favorite" size={30} color={tintColor} />;
+            }
+          }
         }
       })
     }
