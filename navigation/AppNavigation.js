@@ -1,18 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import * as actions from "./actions";
+import * as actions from "../actions";
 import {
   createBottomTabNavigator,
   createAppContainer,
   createStackNavigator
 } from "react-navigation";
 import { Icon } from "react-native-elements";
-import AuthScreen from "./screens/AuthScreen";
-import WelcomeScreen from "./screens/WelcomeScreen";
-import MapScreen from "./screens/MapScreen";
-import DeckScreen from "./screens/DeckScreen";
-import ReviewScreen from "./screens/ReviewScreen";
-import SettingsScreen from "./screens/SettingsScreen";
+import AuthScreen from "../screens/AuthScreen";
+import WelcomeScreen from "../screens/WelcomeScreen";
+import MapScreen from "../screens/MapScreen";
+import DeckScreen from "../screens/DeckScreen";
+import ReviewScreen from "../screens/ReviewScreen";
+import SettingsScreen from "../screens/SettingsScreen";
 
 const AppNavigator = createBottomTabNavigator(
   {

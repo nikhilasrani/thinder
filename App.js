@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Provider } from "react-redux";
-import AppNavigation from "./AppNavigation";
+import AppNavigation from "./navigation/AppNavigation";
 import store from "./store";
 
 class App extends Component {
@@ -13,12 +13,3 @@ class App extends Component {
   }
 }
 export default App;
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: "#fff",
-//     alignItems: "center",
-//     justifyContent: "center"
-//   }
-// });
