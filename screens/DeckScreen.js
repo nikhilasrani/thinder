@@ -13,43 +13,38 @@ class DeckScreen extends Component {
       return <Icon name="cake" size={30} color={tintColor} />;
     }
   };
-  renderCard(job) {
+  renderCard(restaurant) {
     const initialRegion = {
-      longitude: parseInt(job.restaurant.location.longitude),
-      latitude: parseInt(job.restaurant.location.latitude),
+      longitude: parseInt(restaurant.restaurant.location.longitude),
+      latitude: parseInt(restaurant.restaurant.location.latitude),
       latitudeDelta: 0.045,
       longitudeDelta: 0.02
     };
     return (
-      <Card title={job.restaurant.name}>
+      <Card
+        title={restaurant.restaurant.name}
+        containerStyle={styles.cardStyle}
+      >
         <View>
           <Image
             style={styles.image}
             resizeMode="cover"
-            source={{ uri: job.restaurant.thumb }}
+            source={{ uri: restaurant.restaurant.thumb }}
           />
         </View>
         <View style={styles.detailWrapper}>
-          <Text>{job.restaurant.location.locality}</Text>
-          <Text>{job.restaurant.location.city}</Text>
+          <Text>{restaurant.restaurant.location.locality}</Text>
+          <Text>{restaurant.restaurant.location.city}</Text>
           <View>
             <Rating
               imageSize={10}
               readonly
               startingValue={parseInt(
-                job.restaurant.user_rating.aggregate_rating
+                restaurant.restaurant.user_rating.aggregate_rating
               )}
             />
-            <Text>{job.restaurant.user_rating.aggregate_rating}/5</Text>
+            <Text>{restaurant.restaurant.user_rating.aggregate_rating}/5</Text>
           </View>
-        </View>
-        <View style={{ height: 150 }}>
-          <MapView
-            scrollEnabled={false}
-            style={{ flex: 1 }}
-            cacheEnabled={true}
-            initialRegion={initialRegion}
-          />
         </View>
       </Card>
     );
@@ -57,7 +52,7 @@ class DeckScreen extends Component {
 
   renderNoMoreCards = () => {
     return (
-      <Card title="No more Restaurants">
+      <Card title="No More Restaurants" containerStyle={styles.cardStyle}>
         <Text>
           Pan around and search other areas for more nearby restaurants!
         </Text>
@@ -80,10 +75,10 @@ class DeckScreen extends Component {
     return (
       <View style={{ marginTop: 25 }}>
         <Swipe
-          data={this.props.jobs}
+          data={this.props.restaurants}
           renderCard={this.renderCard}
           renderNoMoreCards={this.renderNoMoreCards}
-          onSwipeRight={job => this.props.likeJob(job)}
+          onSwipeRight={restaurant => this.props.likeRestaurant(restaurant)}
         />
       </View>
     );
@@ -97,12 +92,16 @@ const styles = {
     marginBottom: 10
   },
   image: {
-    height: 260
+    height: 260,
+    borderRadius: 8
+  },
+  cardStyle: {
+    borderRadius: 8
   }
 };
 
-function mapStateToProps({ jobs }) {
-  return { jobs: jobs.nearby_restaurants };
+function mapStateToProps({ restaurants }) {
+  return { restaurants: restaurants.nearby_restaurants };
 }
 export default connect(
   mapStateToProps,

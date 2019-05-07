@@ -21,7 +21,7 @@ class SettingsScreen extends Component {
             buttonStyle={{ backgroundColor: "#F55", marginTop: 10 }}
             icon={{ name: "delete-forever", color: "white" }}
             onPress={() => {
-              this.props.clearLikedJobs();
+              this.props.clearLikedRestaurants();
               this.props.navigation.navigate("review");
             }}
           />

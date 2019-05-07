@@ -15,30 +15,32 @@ class ReviewScreen extends Component {
     )
   });
 
-  renderLikedJobs() {
-    return this.props.likedJobs.map(job => {
+  renderLikedRestaurants() {
+    return this.props.likedRestaurants.map(restaurant => {
       return (
-        <Card title={job.restaurant.name} key={job.restaurant.id}>
+        <Card title={restaurant.restaurant.name} key={restaurant.restaurant.id}>
           <View style={{ height: 330 }}>
             <Image
               style={styles.image}
               resizeMode="cover"
-              source={{ uri: job.restaurant.thumb }}
+              source={{ uri: restaurant.restaurant.thumb }}
             />
             <View style={styles.detailWrapper}>
               <View>
-                <Text style={styles.italics}>{job.restaurant.cuisines}</Text>
+                <Text style={styles.italics}>
+                  {restaurant.restaurant.cuisines}
+                </Text>
               </View>
               <View>
                 <Text style={styles.italics}>
-                  {job.restaurant.location.locality_verbose}
+                  {restaurant.restaurant.location.locality_verbose}
                 </Text>
               </View>
             </View>
             <Button
               title="View on Zomato"
               buttonStyle={{ backgroundColor: "#f55" }}
-              onPress={() => Linking.openURL(job.restaurant.deeplink)}
+              onPress={() => Linking.openURL(restaurant.restaurant.deeplink)}
             />
           </View>
         </Card>
@@ -46,7 +48,7 @@ class ReviewScreen extends Component {
     });
   }
   render() {
-    return <ScrollView>{this.renderLikedJobs()}</ScrollView>;
+    return <ScrollView>{this.renderLikedRestaurants()}</ScrollView>;
   }
 }
 
@@ -65,7 +67,7 @@ const styles = {
 };
 
 function mapStateToProps(state) {
-  return { likedJobs: state.likedJobs };
+  return { likedRestaurants: state.likedRestaurants };
 }
 
 export default connect(mapStateToProps)(ReviewScreen);
