@@ -63,14 +63,14 @@ class DeckScreen extends Component {
         </Text>
         <Button
           title="Back to the Map"
-          icon={{ name: "my-location" }}
-          buttonStyle={{ backgroundColor: "#03A9F4" }}
+          icon={{ name: "my-location", color: "white" }}
+          buttonStyle={{ backgroundColor: "#f55" }}
           onPress={() => this.props.navigation.navigate("map")}
         />
         <Button
-          title="Go to Review Screen"
-          icon={{ name: "cake" }}
-          buttonStyle={{ backgroundColor: "#03A9F4" }}
+          title="Go to Saved Restaurants Screen"
+          icon={{ name: "favorite", color: "white" }}
+          buttonStyle={{ backgroundColor: "#f55", marginTop: 10 }}
           onPress={() => this.props.navigation.navigate("review")}
         />
       </Card>

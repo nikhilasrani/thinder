@@ -1,22 +1,31 @@
 import React, { Component } from "react";
 import { View, Text } from "react-native";
-import { Button } from "react-native-elements";
+import { Button, Card } from "react-native-elements";
 import { connect } from "react-redux";
 import * as actions from "../actions";
 
 class SettingsScreen extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    headerTitle: "Application Settings"
+  });
   render() {
     return (
       <View>
-        <Button
-          title="Reset Liked Restaurants"
-          buttonStyle={{ backgroundColor: "#F55" }}
-          icon={{ name: "delete-forever" }}
-          onPress={() => {
-            this.props.clearLikedJobs();
-            this.props.navigation.navigate("review");
-          }}
-        />
+        <Card>
+          <Text>
+            Once you click on the below button, the saved restaurants will be
+            permanently lost.
+          </Text>
+          <Button
+            title="Reset Liked Restaurants"
+            buttonStyle={{ backgroundColor: "#F55", marginTop: 10 }}
+            icon={{ name: "delete-forever", color: "white" }}
+            onPress={() => {
+              this.props.clearLikedJobs();
+              this.props.navigation.navigate("review");
+            }}
+          />
+        </Card>
       </View>
     );
   }

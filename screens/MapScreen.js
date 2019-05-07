@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, ActivityIndicator } from "react-native";
-import { MapView } from "expo";
+import { MapView, Permissions, Location } from "expo";
 import { connect } from "react-redux";
 import { Button, Icon } from "react-native-elements";
 
@@ -20,12 +20,26 @@ class MapScreen extends Component {
       latitude: 13,
       longitudeDelta: 0.04,
       latitudeDelta: 0.09
-    }
+    },
+    location: { coords: { latitude: 37.78825, longitude: -122.4324 } },
+    locationResult: null
   };
   componentDidMount() {
     this.setState({ mapLoaded: true });
+    this._getLocationAsync();
   }
+  _getLocationAsync = async () => {
+    let { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status !== "granted") {
+      this.setState({
+        locationResult: "Permission to access location was denied",
+        region: location.coords
+      });
+    }
 
+    let location = await Location.getCurrentPositionAsync({});
+    this.setState({ locationResult: JSON.stringify(location), location });
+  };
   onRegionChangeComplete = region => {
     this.setState({ region });
   };
@@ -33,6 +47,20 @@ class MapScreen extends Component {
   onButtonPress = () => {
     this.props.fetchJobs(this.state.region, () => {
       this.props.navigation.navigate("deck");
+    });
+  };
+
+  setCurrentLocationPress = () => {
+    this._getLocationAsync();
+    let { latitude, longitude } = this.state.location.coords;
+    this.setState({
+      region: {
+        ...this.region,
+        latitude,
+        longitude,
+        longitudeDelta: 0.004,
+        latitudeDelta: 0.009
+      }
     });
   };
   render() {
@@ -52,10 +80,27 @@ class MapScreen extends Component {
         />
         <View style={styles.buttonContainer}>
           <Button
-            large
+            rounded
+            onPress={this.setCurrentLocationPress}
+            icon={{ name: "my-location" }}
+            buttonStyle={{
+              width: 60,
+              height: 60,
+              borderRadius: 30,
+              backgroundColor: "#FFF",
+              position: "absolute",
+              bottom: 10,
+              right: 10
+            }}
+          />
+          <Button
+            rounded
             title="Search This Area"
-            backgroundColor="#009688"
-            icon={{ name: "search" }}
+            buttonStyle={{
+              backgroundColor: "#f55",
+              marginHorizontal: 20
+            }}
+            icon={{ name: "search", color: "white" }}
             onPress={this.onButtonPress}
           />
         </View>

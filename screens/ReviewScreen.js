@@ -5,11 +5,12 @@ import { connect } from "react-redux";
 
 class ReviewScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
-    headerTitle: "Review Restaurants",
+    headerTitle: "Saved Restaurants",
     headerRight: (
       <Button
-        title="Settings"
+        icon={{ name: "settings" }}
         onPress={() => navigation.navigate("settings")}
+        buttonStyle={{ backgroundColor: "#fff" }}
       />
     )
   });

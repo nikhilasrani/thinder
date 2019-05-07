@@ -28,7 +28,7 @@ const AppNavigator = createBottomTabNavigator(
             settings: { screen: SettingsScreen }
           }),
           navigationOptions: {
-            tabBarLabel: "Review",
+            tabBarLabel: "Saved",
             tabBarIcon: ({ tintColor }) => {
               return <Icon name="favorite" size={30} color={tintColor} />;
             }
