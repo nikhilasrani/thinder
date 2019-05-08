@@ -21,7 +21,7 @@ class MapScreen extends Component {
       longitudeDelta: 0.04,
       latitudeDelta: 0.09
     },
-    location: { coords: { latitude: 37.78825, longitude: -122.4324 } },
+    location: { coords: { latitude: 13, longitude: 77.6 } },
     locationResult: null
   };
   componentDidMount() {

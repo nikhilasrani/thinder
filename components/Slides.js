@@ -9,7 +9,7 @@ class Slides extends Component {
       return (
         <Button
           title="Login with Facebook"
-          raised
+          rounded
           buttonStyle={styles.buttonStyle}
           onPress={this.props.onComplete}
         />
@@ -50,7 +50,8 @@ const styles = {
     textAlign: "center"
   },
   buttonStyle: {
-    backgroundColor: "#0288D1"
+    marginTop:25,
+    backgroundColor: "#3b5998"
   }
 };
 export default Slides;
