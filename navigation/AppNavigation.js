@@ -34,7 +34,9 @@ const AppNavigator = createBottomTabNavigator(
             }
           }
         }
-      })
+      }, {
+        tabBarOptions:  { activeBackgroundColor:"#f55",activeTintColor:"#fff", style:{height:50},tabStyle:{borderRadius:5} }
+        })
     }
   },
   {
