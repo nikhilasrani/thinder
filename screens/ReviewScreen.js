@@ -23,7 +23,7 @@ class ReviewScreen extends Component {
             <Image
               style={styles.image}
               resizeMode="cover"
-              source={{ uri: restaurant.restaurant.thumb }}
+              source={{ uri: restaurant.restaurant.featured_image }}
             />
             <View style={styles.detailWrapper}>
               <View>

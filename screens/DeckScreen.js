@@ -21,29 +21,38 @@ class DeckScreen extends Component {
     };
     return (
       <Card
-        title={restaurant.restaurant.name}
         containerStyle={styles.cardStyle}
       >
         <View>
           <Image
             style={styles.image}
             resizeMode="cover"
-            source={{ uri: restaurant.restaurant.thumb }}
+            source={{ uri: restaurant.restaurant.featured_image }}
           />
-        </View>
-        <View style={styles.detailWrapper}>
-          <Text>{restaurant.restaurant.location.locality}</Text>
-          <Text>{restaurant.restaurant.location.city}</Text>
-          <View>
+          <Card containerStyle={styles.innerCardStyle}>
+          <View style={[styles.column, {flex:2, paddingHorizontal:18}]}>
+            <Text numberOfLines={1} ellipsizeMode="tail" style={{fontWeight:"bold", fontSize: 22}}>{restaurant.restaurant.name}</Text>
+            <Text numberOfLines={1} ellipsizeMode="tail" style={{fontWeight:"lighter", color:"grey"}}>{restaurant.restaurant.cuisines}</Text>
+            </View>
+            <View style={styles.detailWrapper}>
+            <View style={styles.detailsColumnWrapper}>
             <Rating
-              imageSize={10}
-              readonly
-              startingValue={parseInt(
-                restaurant.restaurant.user_rating.aggregate_rating
-              )}
+            readonly
+            type="heart"
+              imageSize={20}
+              startingValue={restaurant.restaurant.user_rating.aggregate_rating}
             />
-            <Text>{restaurant.restaurant.user_rating.aggregate_rating}/5</Text>
-          </View>
+              <Text style={{fontWeight:"lighter", color:"grey"}}>{restaurant.restaurant.user_rating.aggregate_rating}/5 rating</Text>
+              <Text style={{fontWeight:"lighter", color:"grey"}}>{restaurant.restaurant.user_rating.votes} votes</Text>
+            </View>
+            <View style={styles.detailsColumnWrapper}>
+            <Text style={{fontWeight:"bold", fontSize: 18}}>Rs {restaurant.restaurant.average_cost_for_two}</Text>
+            <Text style={{fontWeight:"lighter", color:"grey"}}>average cost for two</Text>
+            </View>
+           
+            </View>
+          </Card>
+          
         </View>
       </Card>
     );
@@ -92,10 +101,18 @@ const styles = {
   },
   image: {
     height: 260,
-    borderRadius: 8
+    borderRadius: 8,
   },
   cardStyle: {
-    borderRadius: 8
+    borderRadius: 8,
+    wrapperStyle:{backgroundColor:"#f2f2f2"}
+  },
+  innerCardStyle:{
+    borderRadius:12,
+    marginTop:-20
+  },
+  detailsColumnWrapper:{
+    alignItems: "center"
   }
 };
 
@@ -106,3 +123,17 @@ export default connect(
   mapStateToProps,
   actions
 )(DeckScreen);
+
+
+// TODO: Add directions to restaurant linking externally to users map app
+//onPress={() => Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${restaurant.restaurant.location.latitude},${restaurant.restaurant.location.longitude}`)}/>
+//<Button 
+//title="Directions"
+//buttonStyle={{ backgroundColor: "#f2f2f4" }}
+//onPress={() => Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${restaurant.restaurant.location.latitude},${restaurant.restaurant.location.longitude}`)}/>
+
+{/* <Button 
+rounded
+title="Zomato"
+buttonStyle={{ backgroundColor: "#f55" }}
+onPress={() => Linking.openURL(restaurant.restaurant.deeplink)}/> */}
