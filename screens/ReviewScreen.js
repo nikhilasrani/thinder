@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, Platform, ScrollView, Image, Linking } from "react-native";
-import { Card, Button } from "react-native-elements";
+import { Card, Button, Rating } from "react-native-elements";
 import { connect } from "react-redux";
 
 class ReviewScreen extends Component {
@@ -18,31 +18,42 @@ class ReviewScreen extends Component {
   renderLikedRestaurants() {
     return this.props.likedRestaurants.map(restaurant => {
       return (
-        <Card title={restaurant.restaurant.name} key={restaurant.restaurant.id}>
-          <View style={{ height: 330 }}>
-            <Image
-              style={styles.image}
-              resizeMode="cover"
-              source={{ uri: restaurant.restaurant.featured_image }}
-            />
-            <View style={styles.detailWrapper}>
-              <View>
-                <Text style={styles.italics}>
-                  {restaurant.restaurant.cuisines}
-                </Text>
-              </View>
-              <View>
-                <Text style={styles.italics}>
-                  {restaurant.restaurant.location.locality_verbose}
-                </Text>
-              </View>
+        <Card containerStyle={styles.cardStyle} key={restaurant.restaurant.id}>
+            <View>
+          <Image
+            style={styles.image}
+            resizeMode="cover"
+            source={{ uri: restaurant.restaurant.featured_image }}
+          />
+          <Card containerStyle={styles.innerCardStyle}>
+          <View style={[styles.column, {flex:2, paddingHorizontal:18}]}>
+            <Text numberOfLines={1} ellipsizeMode="tail" style={{fontWeight:"bold", fontSize: 22}}>{restaurant.restaurant.name}</Text>
+            <Text numberOfLines={1} ellipsizeMode="tail" style={{fontWeight:"lighter", color:"grey"}}>{restaurant.restaurant.cuisines}</Text>
             </View>
+            <View style={styles.detailWrapper}>
+            <View style={styles.detailsColumnWrapper}>
+            <Rating
+            readonly
+            type="heart"
+              imageSize={20}
+              startingValue={restaurant.restaurant.user_rating.aggregate_rating}
+            />
+              <Text style={{fontWeight:"lighter", color:"grey"}}>{restaurant.restaurant.user_rating.aggregate_rating}/5 rating</Text>
+              <Text style={{fontWeight:"lighter", color:"grey"}}>{restaurant.restaurant.user_rating.votes} votes</Text>
+            </View>
+            <View style={styles.detailsColumnWrapper}>
+            <Text style={{fontWeight:"bold", fontSize: 18}}>Rs {restaurant.restaurant.average_cost_for_two}</Text>
+            <Text style={{fontWeight:"lighter", color:"grey"}}>average cost for two</Text>
+            </View>
+            </View>
+          </Card>
+        </View>
             <Button
+              rounded
               title="View on Zomato"
-              buttonStyle={{ backgroundColor: "#f55" }}
+              buttonStyle={{ backgroundColor: "#f55", paddingHorizontal:30, marginTop:15 }}
               onPress={() => Linking.openURL(restaurant.restaurant.deeplink)}
             />
-          </View>
         </Card>
       );
     });
@@ -54,17 +65,27 @@ class ReviewScreen extends Component {
 
 const styles = {
   detailWrapper: {
-    marginBottom: 10,
     flexDirection: "row",
-    justifyContent: "space-around"
-  },
-  italics: {
-    fontStyle: "italic"
+    justifyContent: "space-around",
+    marginBottom: 10
   },
   image: {
-    height: 260
+    height: 260,
+    borderRadius: 8,
+  },
+  cardStyle: {
+    borderRadius: 8,
+    wrapperStyle:{backgroundColor:"#f2f2f2"}
+  },
+  innerCardStyle:{
+    borderRadius:12,
+    marginTop:-20
+  },
+  detailsColumnWrapper:{
+    alignItems: "center"
   }
 };
+
 
 function mapStateToProps(state) {
   return { likedRestaurants: state.likedRestaurants };
