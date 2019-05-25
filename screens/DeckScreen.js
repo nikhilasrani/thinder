@@ -39,7 +39,7 @@ class DeckScreen extends Component {
             <Rating
             readonly
             type="heart"
-              imageSize={20}
+              imageSize={25}
               startingValue={restaurant.restaurant.user_rating.aggregate_rating}
             />
               <Text style={{fontWeight:"lighter", color:"grey"}}>{restaurant.restaurant.user_rating.aggregate_rating}/5 rating</Text>
