@@ -6,7 +6,7 @@ import * as actions from "../actions";
 
 class SettingsScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
-    headerTitle: "Application Settings"
+    header:{ title: "Application Settings"}
   });
   render() {
     return (

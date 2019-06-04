@@ -11,7 +11,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "facebookScheme":"fb702499076835455",
+    "facebookScheme": "fb702499076835455",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -26,6 +26,7 @@
     "ios": {
       "supportsTablet": true
     },
-    "description": "Thinder is an app that combines a Tinder-like interface with Zomato's API capabilities to search for restaurants nearby and help you make that food decision much easier."
+    "description": "Thinder is an app that combines a Tinder-like interface with Zomato's API capabilities to search for restaurants nearby and help you make that food decision much easier.",
+    "githubUrl": "https://github.com/nikhilasrani/thinder"
   }
 }

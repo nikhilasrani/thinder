@@ -7,17 +7,15 @@ import {
   createStackNavigator
 } from "react-navigation";
 import { Icon } from "react-native-elements";
-import AuthScreen from "../screens/AuthScreen";
-import WelcomeScreen from "../screens/WelcomeScreen";
 import MapScreen from "../screens/MapScreen";
 import DeckScreen from "../screens/DeckScreen";
 import ReviewScreen from "../screens/ReviewScreen";
 import SettingsScreen from "../screens/SettingsScreen";
+import OnboardingScreen from "../screens/OnboardingScreen";
 
 const AppNavigator = createBottomTabNavigator(
   {
-    welcome: { screen: WelcomeScreen },
-    auth: { screen: AuthScreen },
+    welcome: { screen: OnboardingScreen },
     main: {
       screen: createBottomTabNavigator({
         map: { screen: MapScreen },
