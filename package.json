@@ -13,6 +13,7 @@
     "react": "^16.8.6",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
     "react-native-elements": "^1.1.0",
+    "react-native-onboarding-swiper": "^1.1.0",
     "react-navigation": "^3.9.1",
     "react-redux": "^6.0.1",
     "redux": "^4.0.1",

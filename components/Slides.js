@@ -55,3 +55,4 @@ const styles = {
   }
 };
 export default Slides;
+
