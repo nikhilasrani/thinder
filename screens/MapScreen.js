@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, ActivityIndicator } from "react-native";
-import { MapView, Permissions, Location } from "expo";
+import { MapView, Permissions, Location, Circle } from "expo";
 import { connect } from "react-redux";
 import { Button, Icon } from "react-native-elements";
 
@@ -77,7 +77,7 @@ class MapScreen extends Component {
           region={this.state.region}
           style={{ flex: 1 }}
           onRegionChangeComplete={this.onRegionChangeComplete}
-        />
+        ><MapView.Circle center={{latitude:this.state.location.coords.latitude,longitude:this.state.location.coords.longitude}} radius={15} strokeWidth={5} strokeColor="#fff" fillColor="rgb(255,85,85)"/></MapView>
         <View style={styles.buttonContainer}>
           <Button
             rounded
@@ -97,7 +97,7 @@ class MapScreen extends Component {
             rounded
             title="Search This Area"
             buttonStyle={{
-              backgroundColor: "#f55",
+              backgroundColor: "f55",
               marginHorizontal: 20
             }}
             icon={{ name: "search", color: "white" }}
