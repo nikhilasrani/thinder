@@ -9,9 +9,10 @@
       "android"
     ],
     "android": {
-      "package": "com.nikhilasrani.thinder"
+      "package": "com.nikhilasrani.thinder",
+      "versionCode": 2
     },
-    "version": "1.0.0",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "facebookScheme": "fb702499076835455",

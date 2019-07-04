@@ -87,7 +87,7 @@ class MapScreen extends Component {
               width: 60,
               height: 60,
               borderRadius: 30,
-              backgroundColor: "#FFF",
+              backgroundColor: "#fff",
               position: "absolute",
               bottom: 10,
               right: 10
@@ -97,7 +97,7 @@ class MapScreen extends Component {
             rounded
             title="Search This Area"
             buttonStyle={{
-              backgroundColor: "f55",
+              backgroundColor: "#f55",
               marginHorizontal: 20
             }}
             icon={{ name: "search", color: "white" }}

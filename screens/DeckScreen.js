@@ -81,13 +81,25 @@ class DeckScreen extends Component {
   };
   render() {
     return (
-      <View style={{ marginTop: 25 }}>
+      <View style={{ marginTop: 25, flex:1, backgroundColor:"#fff" }}>
         <Swipe
           data={this.props.restaurants}
           renderCard={this.renderCard}
           renderNoMoreCards={this.renderNoMoreCards}
           onSwipeRight={restaurant => this.props.likeRestaurant(restaurant)}
         />
+        <View style={{position:"absolute", bottom:"10%", alignItems:"center"}}>
+          <View style={{flexDirection:"row", justifyContent:"center", left:"50%", paddingVertical:15, paddingHorizontal:30}}>
+          <Icon name="chevron-left" size={30} color="#333"/>
+            <Text style={{fontSize:20, color:"#333"}}>Swipe Left to Dismiss </Text>
+            <Icon name="sentiment-dissatisfied" size={30} color="#333" />
+          </View>
+          <View style={{flexDirection:"row", justifyContent:"center", left:"50%", paddingVertical:15, paddingHorizontal:30}}>
+          <Icon name="sentiment-very-satisfied" size={30} color="#333" />
+        <Text style={{fontSize:20, color:"#333"}}> Swipe Right to Save</Text>
+        <Icon name="chevron-right" size={30} color="#333" />
+        </View>
+        </View>
       </View>
     );
   }
