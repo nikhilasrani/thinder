@@ -1,6 +1,8 @@
 # Thinder
 Solve indecision in deciding a restaurant using this game-ified selection approach in this React Native App.
 
+![Thinder Portfolio Image](https://raw.githubusercontent.com/nikhilasrani/thinder/old-state/assets/Thinder_Portfolio-min.png)
+
 ## Built With
 
 * [React Native](https://facebook.github.io/react-native/) - Framework for building native apps using React.
