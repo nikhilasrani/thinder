@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { View, Text, ActivityIndicator } from "react-native";
-import { MapView, Permissions, Location } from "expo";
+import * as Location from 'expo-location';
+import * as Permissions from 'expo-permissions';
+import MapView from 'react-native-maps';
 import { connect } from "react-redux";
 import { Button, Icon } from "react-native-elements";
 
