@@ -1,11 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../actions";
-import {
-  createBottomTabNavigator,
-  createAppContainer,
-  createStackNavigator
-} from "react-navigation";
+import { createAppContainer } from "react-navigation";
+import { createStackNavigator } from "react-navigation-stack";
+import { createBottomTabNavigator } from "react-navigation-tabs";
 import { Icon } from "react-native-elements";
 import MapScreen from "../screens/MapScreen";
 import DeckScreen from "../screens/DeckScreen";
@@ -17,31 +15,24 @@ const AppNavigator = createBottomTabNavigator(
   {
     welcome: { screen: OnboardingScreen },
     main: {
-      screen: createBottomTabNavigator({
-        map: { screen: MapScreen },
-        deck: { screen: DeckScreen },
-        review: {
-          screen: createStackNavigator({
-            review: { screen: ReviewScreen },
-            settings: { screen: SettingsScreen }
-          }),
-          navigationOptions: {
-            tabBarLabel: "Saved",
-            tabBarIcon: ({ tintColor }) => {
-              return <Icon name="favorite" size={30} color={tintColor} />;
-            }
-          }
+      screen: createBottomTabNavigator(
+        {
+          map: { screen: MapScreen },
+          deck: { screen: DeckScreen },
+          review: { screen: ReviewScreen },
+          settings: { screen: SettingsScreen },
+        },
+        {
+          tabBarOptions: { activeBackgroundColor: "#f55", activeTintColor: "#fff", style: { height: 50 }, tabStyle: { borderRadius: 5 } },
         }
-      }, {
-        tabBarOptions:  { activeBackgroundColor:"#f55",activeTintColor:"#fff", style:{height:50},tabStyle:{borderRadius:5} }
-        })
-    }
+      ),
+    },
   },
   {
     defaultNavigationOptions: {
-      tabBarVisible: false
+      tabBarVisible: false,
     },
-    lazy: true
+    lazy: true,
   }
 );
 AppNavigator.navigationOptions = ({ navigation }) => {
@@ -55,7 +46,4 @@ class AppNavigation extends Component {
   }
 }
 
-export default connect(
-  null,
-  actions
-)(AppNavigation);
+export default connect(null, actions)(AppNavigation);
