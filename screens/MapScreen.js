@@ -1,30 +1,24 @@
 import React, { Component } from "react";
 import { View, Text, ActivityIndicator } from "react-native";
-import * as Location from 'expo-location';
-import * as Permissions from 'expo-permissions';
-import MapView from 'react-native-maps';
+import * as Location from "expo-location";
+import * as Permissions from "expo-permissions";
+import MapView from "react-native-maps";
 import { connect } from "react-redux";
 import { Button, Icon } from "react-native-elements";
 
 import * as actions from "../actions";
 
 class MapScreen extends Component {
-  static navigationOptions = {
-    tabBarLabel: "Map",
-    tabBarIcon: ({ tintColor }) => {
-      return <Icon name="my-location" size={30} color={tintColor} />;
-    }
-  };
   state = {
     mapLoaded: false,
     region: {
       longitude: 77.6,
       latitude: 13,
       longitudeDelta: 0.04,
-      latitudeDelta: 0.09
+      latitudeDelta: 0.09,
     },
     location: { coords: { latitude: 13, longitude: 77.6 } },
-    locationResult: null
+    locationResult: null,
   };
   componentDidMount() {
     this.setState({ mapLoaded: true });
@@ -35,20 +29,20 @@ class MapScreen extends Component {
     if (status !== "granted") {
       this.setState({
         locationResult: "Permission to access location was denied",
-        region: location.coords
+        region: location.coords,
       });
     }
 
     let location = await Location.getCurrentPositionAsync({});
     this.setState({ locationResult: JSON.stringify(location), location });
   };
-  onRegionChangeComplete = region => {
+  onRegionChangeComplete = (region) => {
     this.setState({ region });
   };
 
   onButtonPress = () => {
     this.props.fetchRestaurants(this.state.region, () => {
-      this.props.navigation.navigate("deck");
+      this.props.navigation.navigate("Deck");
     });
   };
 
@@ -61,8 +55,8 @@ class MapScreen extends Component {
         latitude,
         longitude,
         longitudeDelta: 0.004,
-        latitudeDelta: 0.009
-      }
+        latitudeDelta: 0.009,
+      },
     });
   };
   render() {
@@ -75,11 +69,7 @@ class MapScreen extends Component {
     }
     return (
       <View style={{ flex: 1 }}>
-        <MapView
-          region={this.state.region}
-          style={{ flex: 1 }}
-          onRegionChangeComplete={this.onRegionChangeComplete}
-        />
+        <MapView region={this.state.region} style={{ flex: 1 }} onRegionChangeComplete={this.onRegionChangeComplete} />
         <View style={styles.buttonContainer}>
           <Button
             rounded
@@ -92,7 +82,7 @@ class MapScreen extends Component {
               backgroundColor: "#FFF",
               position: "absolute",
               bottom: 10,
-              right: 10
+              right: 10,
             }}
           />
           <Button
@@ -100,7 +90,7 @@ class MapScreen extends Component {
             title="Search This Area"
             buttonStyle={{
               backgroundColor: "#f55",
-              marginHorizontal: 20
+              marginHorizontal: 20,
             }}
             icon={{ name: "search", color: "white" }}
             onPress={this.onButtonPress}
@@ -115,10 +105,7 @@ const styles = {
     position: "absolute",
     bottom: 20,
     left: 0,
-    right: 0
-  }
+    right: 0,
+  },
 };
-export default connect(
-  null,
-  actions
-)(MapScreen);
+export default connect(null, actions)(MapScreen);

@@ -9,13 +9,12 @@ const SLIDE_DATA = [
   {
     text:
       "The word 'thindi' or 'ತಿಂಡಿ' in Kannada means food. Thinder is an app that combines a Tinder-like interface with Zomato's API capabilities to search for restaurants nearby and help you make that food decision much easier.",
-    color: "#009688"
+    color: "#009688",
   },
   {
-    text:
-      "This app authenticates you and persists data using Facebook. Select your location and begin swiping away!",
-    color: "#03A9F4"
-  }
+    text: "This app authenticates you and persists data using Facebook. Select your location and begin swiping away!",
+    color: "#03A9F4",
+  },
 ];
 
 class WelcomeScreen extends Component {
@@ -25,14 +24,14 @@ class WelcomeScreen extends Component {
     let token = await AsyncStorage.getItem("fb_token");
 
     if (token) {
-      this.props.navigation.navigate("map");
+      this.props.navigation.navigate("Map");
       this.setState({ token });
     } else {
       this.setState({ token: false });
     }
   }
   onSlidesComplete = () => {
-    this.props.navigation.navigate("auth");
+    this.props.navigation.navigate("Auth");
   };
   render() {
     if (_.isNull(this.state.token)) {

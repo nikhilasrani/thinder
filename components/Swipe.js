@@ -1,12 +1,5 @@
 import React, { Component } from "react";
-import {
-  View,
-  Animated,
-  PanResponder,
-  Dimensions,
-  LayoutAnimation,
-  UIManager
-} from "react-native";
+import { View, Animated, PanResponder, Dimensions, LayoutAnimation, UIManager } from "react-native";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 const SWIPE_THRESHOLD = 0.25 * SCREEN_WIDTH;
@@ -15,7 +8,7 @@ const SWIPE_OUT_DURATION = 250;
 class Swipe extends Component {
   static defaultProps = {
     onSwipeRight: () => {},
-    onSwipeLeft: () => {}
+    onSwipeLeft: () => {},
   };
 
   constructor(props) {
@@ -35,21 +28,20 @@ class Swipe extends Component {
         } else {
           this.resetPosition();
         }
-      }
+      },
     });
 
     this.state = { panResponder, position, index: 0 };
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.data !== this.props.data) {
+  componentDidUpdate(prevProps) {
+    if (prevProps.data !== this.props.data) {
       this.setState({ index: 0 });
     }
   }
 
   componentWillUpdate() {
-    UIManager.setLayoutAnimationEnabledExperimental &&
-      UIManager.setLayoutAnimationEnabledExperimental(true);
+    UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
     LayoutAnimation.spring();
   }
 
@@ -57,7 +49,7 @@ class Swipe extends Component {
     const x = direction === "right" ? SCREEN_WIDTH : -SCREEN_WIDTH;
     Animated.timing(this.state.position, {
       toValue: { x, y: 0 },
-      duration: SWIPE_OUT_DURATION
+      duration: SWIPE_OUT_DURATION,
     }).start(() => this.onSwipeComplete(direction));
   }
 
@@ -72,7 +64,7 @@ class Swipe extends Component {
 
   resetPosition() {
     Animated.spring(this.state.position, {
-      toValue: { x: 0, y: 0 }
+      toValue: { x: 0, y: 0 },
     }).start();
   }
 
@@ -80,12 +72,12 @@ class Swipe extends Component {
     const { position } = this.state;
     const rotate = position.x.interpolate({
       inputRange: [-SCREEN_WIDTH * 1.5, 0, SCREEN_WIDTH * 1.5],
-      outputRange: ["-120deg", "0deg", "120deg"]
+      outputRange: ["-120deg", "0deg", "120deg"],
     });
 
     return {
       ...position.getLayout(),
-      transform: [{ rotate }]
+      transform: [{ rotate }],
     };
   }
 
@@ -113,13 +105,7 @@ class Swipe extends Component {
         }
 
         return (
-          <Animated.View
-            key={item.restaurant.id}
-            style={[
-              styles.cardStyle,
-              { top: 10 * (i - this.state.index), zIndex: 5 }
-            ]}
-          >
+          <Animated.View key={item.restaurant.id} style={[styles.cardStyle, { top: 10 * (i - this.state.index), zIndex: 5 }]}>
             {this.props.renderCard(item)}
           </Animated.View>
         );
@@ -135,8 +121,8 @@ class Swipe extends Component {
 const styles = {
   cardStyle: {
     position: "absolute",
-    width: SCREEN_WIDTH
-  }
+    width: SCREEN_WIDTH,
+  },
 };
 
 export default Swipe;

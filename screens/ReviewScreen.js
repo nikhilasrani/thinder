@@ -4,17 +4,6 @@ import { Card, Button, Rating } from "react-native-elements";
 import { connect } from "react-redux";
 
 class ReviewScreen extends Component {
-  // static navigationOptions = ({ navigation }) => ({
-  //   headerTitle: "Saved Restaurants",
-  //   headerRight: (
-  //     <Button
-  //       icon={{ name: "settings" }}
-  //       onPress={() => navigation.navigate("settings")}
-  //       buttonStyle={{ backgroundColor: "#fff" }}
-  //     />
-  //   )
-  // });
-
   renderLikedRestaurants() {
     return this.props.likedRestaurants.map((restaurant) => {
       return (
@@ -37,7 +26,7 @@ class ReviewScreen extends Component {
                   <Text style={{ fontWeight: "lighter", color: "grey" }}>{restaurant.restaurant.user_rating.votes} votes</Text>
                 </View>
                 <View style={styles.detailsColumnWrapper}>
-                  <Text style={{ fontWeight: "bold", fontSize: 18 }}>Rs {restaurant.restaurant.average_cost_for_two}</Text>
+                  <Text style={{ fontWeight: "bold", fontSize: 18 }}>Rs {restaurant.restaurant.average_cost_for_two.toString()}</Text>
                   <Text style={{ fontWeight: "lighter", color: "grey" }}>average cost for two</Text>
                 </View>
               </View>
@@ -49,7 +38,6 @@ class ReviewScreen extends Component {
             buttonStyle={{ backgroundColor: "#f55", paddingHorizontal: 30, marginTop: 15 }}
             onPress={() => Linking.openURL(restaurant.restaurant.deeplink)}
           />
-          <Button icon={{ name: "settings" }} onPress={() => this.props.navigation.navigate("settings")} buttonStyle={{ backgroundColor: "#fff" }} />
         </Card>
       );
     });

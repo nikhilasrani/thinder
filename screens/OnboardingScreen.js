@@ -10,7 +10,7 @@ class OnboardingScreen extends Component {
     let token = await AsyncStorage.getItem("fb_token");
 
     if (token) {
-      this.props.navigation.navigate("map");
+      this.props.navigation.navigate("Map");
       this.setState({ token });
     } else {
       this.setState({ token: false });
@@ -18,7 +18,7 @@ class OnboardingScreen extends Component {
   }
   generateToken = async () => {
     await AsyncStorage.setItem("hasVisited", "true");
-    this.props.navigation.navigate("map");
+    this.props.navigation.navigate("Map");
   };
   render() {
     return (
