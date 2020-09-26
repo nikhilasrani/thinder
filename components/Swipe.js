@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { View, Animated, PanResponder, Dimensions, LayoutAnimation, UIManager } from "react-native";
+import {
+  View,
+  Animated,
+  PanResponder,
+  Dimensions,
+  LayoutAnimation,
+  UIManager,
+} from "react-native";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 const SWIPE_THRESHOLD = 0.25 * SCREEN_WIDTH;
@@ -41,7 +48,8 @@ class Swipe extends Component {
   }
 
   componentWillUpdate() {
-    UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
+    UIManager.setLayoutAnimationEnabledExperimental &&
+      UIManager.setLayoutAnimationEnabledExperimental(true);
     LayoutAnimation.spring();
   }
 
@@ -50,6 +58,7 @@ class Swipe extends Component {
     Animated.timing(this.state.position, {
       toValue: { x, y: 0 },
       duration: SWIPE_OUT_DURATION,
+      useNativeDriver: false,
     }).start(() => this.onSwipeComplete(direction));
   }
 
@@ -65,6 +74,7 @@ class Swipe extends Component {
   resetPosition() {
     Animated.spring(this.state.position, {
       toValue: { x: 0, y: 0 },
+      useNativeDriver: false,
     }).start();
   }
 
@@ -105,7 +115,13 @@ class Swipe extends Component {
         }
 
         return (
-          <Animated.View key={item.restaurant.id} style={[styles.cardStyle, { top: 10 * (i - this.state.index), zIndex: 5 }]}>
+          <Animated.View
+            key={item.restaurant.id}
+            style={[
+              styles.cardStyle,
+              { top: 10 * (i - this.state.index), zIndex: 5 },
+            ]}
+          >
             {this.props.renderCard(item)}
           </Animated.View>
         );
