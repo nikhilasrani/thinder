@@ -1,35 +1,36 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  Image,
-  SafeAreaView,
-  StyleSheet,
-  Button,
-} from "react-native";
-import * as Permissions from "expo-permissions";
-import { usePermissions } from "expo-permissions";
+import { View, Text, SafeAreaView, ScrollView } from "react-native";
+import * as Location from "expo-location";
 import { Ionicons } from "@expo/vector-icons";
+import RestaurantCard from "../components/RestaurantCard";
 
 const FeedScreen = () => {
-  const latitude = 12.97;
-  const longitude = 77.59;
+  const [location, setLocation] = useState({ latitude: 13, longitude: 77.5 });
+  const [errorMsg, setErrorMsg] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+    })();
+  }, []);
+
+  let text = "Waiting..";
+  if (errorMsg) {
+    text = errorMsg;
+  } else if (location) {
+    text = JSON.stringify(location);
+  }
+
+  const { latitude = 13, longitude = 77.5 } = location;
   const url = `https://developers.zomato.com/api/v2.1/geocode?lat=${latitude}&lon=${longitude}`;
 
   const [data, setData] = useState(null);
-
-  const [permission, askForPermission] = usePermissions(Permissions.LOCATION, {
-    ask: true,
-  });
-
-  if (!permission || permission.status !== "granted") {
-    return (
-      <View>
-        <Text>Permission is not granted</Text>
-        <Button title="Grant permission" onPress={askForPermission} />
-      </View>
-    );
-  }
 
   useEffect(() => {
     async function fetchData() {
@@ -38,65 +39,56 @@ const FeedScreen = () => {
       });
       response = await response.json();
       console.log(response);
+      setData(response);
     }
     fetchData();
-
-    setData(data);
-  }, [data]);
+  }, []);
 
   return (
     <SafeAreaView style={{ backgroundColor: "#f5f3f9", flex: 1 }}>
       <View
         style={{
-          paddingVertical: 48,
+          paddingTop: 48,
+          paddingBottom: 16,
           paddingHorizontal: 42,
           flexDirection: "row",
           justifyContent: "space-between",
+          backgroundColor: "#FFFFFF",
         }}
       >
-        <Ionicons name="ios-menu" color={"#333333"} size={32} />
+        <View style={{ flexDirection: "row" }}>
+          <Ionicons name="ios-menu" color={"#333333"} size={32} />
+          {data && data.location && (
+            <View style={{ marginLeft: 16 }}>
+              <Text>{data.location.title}</Text>
+              <Text style={{}}>
+                {data.location.city_name}, {data.location.country_name}
+              </Text>
+            </View>
+          )}
+        </View>
         <Ionicons name="ios-cart" color={"#333333"} size={32} />
       </View>
       <View style={{ paddingHorizontal: 42 }}>
-        <Text>Restaurants near me</Text>
-        <Text>{JSON.stringify(data)}</Text>
-        {data && data.nearby_restaurants
-          ? data.nearby_restaurants.map((item, index) => {
-              return (
-                <View style={styles.cardContainer}>
-                  <Image
-                    source={{ uri: item.restaurant.featured_image }}
-                    style={styles.cardImage}
-                  />
-                  <View>
-                    <Text>{item.restaurant.name}</Text>
-                    <Text>{item.restaurant.cuisines}</Text>
-                  </View>
-                </View>
-              );
-            })
-          : null}
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Text
+            style={{
+              fontFamily: "Manrope_800ExtraBold",
+              fontSize: 20,
+              paddingTop: 24,
+            }}
+          >
+            Restaurants near me
+          </Text>
+          {data && data.nearby_restaurants
+            ? data.nearby_restaurants.map((item, index) => {
+                return <RestaurantCard item={item} index={index} />;
+              })
+            : null}
+        </ScrollView>
       </View>
     </SafeAreaView>
   );
 };
 
 export default FeedScreen;
-
-const styles = StyleSheet.create({
-  cardContainer: {
-    backgroundColor: "#ffffff",
-    marginVertical: 10,
-    marginHorizontal: 30,
-    padding: 16,
-    borderRadius: 12,
-    flexDirection: "row",
-  },
-  cardImage: {
-    height: 75,
-    width: 75,
-    resizeMode: "cover",
-    marginRight: 16,
-    borderRadius: 6,
-  },
-});
