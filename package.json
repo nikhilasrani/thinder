@@ -20,7 +20,7 @@
     "expo-permissions": "~9.3.0",
     "lodash": "^4.17.19",
     "react": "16.13.1",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.0.tar.gz",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.3.tar.gz",
     "react-native-elements": "^1.1.0",
     "react-native-gesture-handler": "~1.7.0",
     "react-native-maps": "0.27.1",

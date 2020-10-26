@@ -6,8 +6,6 @@ import MapView from "react-native-maps";
 import { connect } from "react-redux";
 import { Button, Icon } from "react-native-elements";
 
-import * as actions from "../actions";
-
 class MapScreen extends Component {
   state = {
     mapLoaded: false,
@@ -69,7 +67,11 @@ class MapScreen extends Component {
     }
     return (
       <View style={{ flex: 1 }}>
-        <MapView region={this.state.region} style={{ flex: 1 }} onRegionChangeComplete={this.onRegionChangeComplete} />
+        <MapView
+          region={this.state.region}
+          style={{ flex: 1 }}
+          onRegionChangeComplete={this.onRegionChangeComplete}
+        />
         <View style={styles.buttonContainer}>
           <Button
             rounded

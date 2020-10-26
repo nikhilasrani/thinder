@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, Image } from "react-native";
-import { connect } from "react-redux";
 import { Button, Card, Rating, Icon } from "react-native-elements";
-import Swipe from "../components/Swipe";
-import * as actions from "../actions";
 
 class DeckScreen extends Component {
   static navigationOptions = {
@@ -71,12 +68,6 @@ class DeckScreen extends Component {
   render() {
     return (
       <View style={{ marginTop: 25 }}>
-        <Swipe
-          data={this.props.restaurants}
-          renderCard={this.renderCard}
-          renderNoMoreCards={this.renderNoMoreCards}
-          onSwipeRight={(restaurant) => this.props.likeRestaurant(restaurant)}
-        />
       </View>
     );
   }
@@ -105,22 +96,7 @@ const styles = {
   },
 };
 
-function mapStateToProps({ restaurants }) {
-  return { restaurants: restaurants.nearby_restaurants };
-}
-export default connect(mapStateToProps, actions)(DeckScreen);
 
-// TODO: Add directions to restaurant linking externally to users map app
-//onPress={() => Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${restaurant.restaurant.location.latitude},${restaurant.restaurant.location.longitude}`)}/>
-//<Button
-//title="Directions"
-//buttonStyle={{ backgroundColor: "#f2f2f4" }}
-//onPress={() => Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${restaurant.restaurant.location.latitude},${restaurant.restaurant.location.longitude}`)}/>
+export default DeckScreen
 
-{
-  /* <Button 
-rounded
-title="Zomato"
-buttonStyle={{ backgroundColor: "#f55" }}
-onPress={() => Linking.openURL(restaurant.restaurant.deeplink)}/> */
 }
